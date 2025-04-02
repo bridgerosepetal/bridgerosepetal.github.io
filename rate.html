@@ -30,13 +30,12 @@
       padding: 15px;
       width: 220px;
       min-height: 220px;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+      box-shadow: none;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 10px;
       transition: box-shadow 0.2s;
-      box-shadow: none;
       max-height: 600px;
       overflow: auto;
     }
@@ -46,9 +45,7 @@
     }
 
     #s-tier { background: #663399; }
-    #a-tier { background-color: gray; }
-    #b-tier { background: gray; }
-    #c-tier { background: gray; }
+    #a-tier, #b-tier, #c-tier { background-color: gray; }
 
     #elements {
       background-color: #333;
@@ -72,6 +69,7 @@
       border-radius: 6px;
       cursor: grab;
       transition: background-color 0.2s, transform 0.2s;
+      position: relative;
     }
 
     .element:hover {
@@ -89,6 +87,27 @@
     .deprecated {
       opacity: 0.5;
       text-decoration: line-through;
+    }
+
+    .tooltip {
+      visibility: hidden;
+      background-color: #222;
+      color: #fff;
+      text-align: center;
+      padding: 5px;
+      border-radius: 5px;
+      position: absolute;
+      z-index: 1;
+      bottom: 110%;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .element:hover .tooltip {
+      visibility: visible;
     }
   </style>
 </head>
@@ -1084,7 +1103,6 @@
   }
 ];
 
-
     const container = document.getElementById("elements");
 
     elements.forEach(el => {
@@ -1094,16 +1112,20 @@
       div.ondragstart = drag;
       div.id = el.tag + "-el";
       div.innerHTML = `<mark>&lt;${el.tag}&gt;</mark> ${el.name}`;
+
+      if (el.description) {
+        const tooltip = document.createElement("span");
+        tooltip.className = "tooltip";
+        tooltip.innerText = el.description;
+        div.appendChild(tooltip);
+      }
+
       container.appendChild(div);
     });
 
-    function allowDrop(ev) {
-      ev.preventDefault();
-    }
+    function allowDrop(ev) { ev.preventDefault(); }
 
-    function drag(ev) {
-      ev.dataTransfer.setData("text", ev.target.id);
-    }
+    function drag(ev) { ev.dataTransfer.setData("text", ev.target.id); }
 
     function drop(ev) {
       ev.preventDefault();
