@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML Element Tier List</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #1f1f1f;
+      color: #ffffff;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      margin-bottom: 30px;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .tier {
+      border-radius: 12px;
+      padding: 15px;
+      width: 220px;
+      min-height: 220px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      transition: box-shadow 0.2s;
+      box-shadow: none;
+      max-height: 600px;
+      overflow: auto;
+    }
+
+    .tier:hover {
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    #s-tier { background: #663399; }
+    #a-tier { background-color: gray; }
+    #b-tier { background: gray; }
+    #c-tier { background: gray; }
+
+    #elements {
+      background-color: #333;
+      overflow-y: auto;
+      max-height: 600px;
+      border: 2px dashed #555;
+    }
+
+    .tier h2 {
+      margin-top: 0;
+      border-bottom: 2px solid rgba(255,255,255,0.2);
+      padding-bottom: 5px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .element {
+      padding: 8px 12px;
+      margin: 5px;
+      background-color: #444;
+      border-radius: 6px;
+      cursor: grab;
+      transition: background-color 0.2s, transform 0.2s;
+    }
+
+    .element:hover {
+      background-color: #555;
+      transform: scale(1.05);
+    }
+
+    .element mark {
+      background-color: #00adb5;
+      color: #fff;
+      padding: 0 5px;
+      border-radius: 3px;
+    }
+
+    .deprecated {
+      opacity: 0.5;
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+<body>
+  <h1>HTML Element Tier List</h1>
+  <div class="container">
+    <div class="tier" id="s-tier" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <h2>S Tier</h2>
+    </div>
+    <div class="tier" id="a-tier" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <h2>A Tier</h2>
+    </div>
+    <div class="tier" id="b-tier" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <h2>B Tier</h2>
+    </div>
+    <div class="tier" id="c-tier" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <h2>C Tier</h2>
+    </div>
+    <div class="tier" id="elements" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <h2>Elements</h2>
+    </div>
+  </div>
+
+  <script>
+    const elements = [
+  // Main root
+  {
+    name: "HTML",
+    tag: "html",
+    deprecated: false,
+    description:
+      "Represents the root (top-level element) of an HTML document, so it is also referred to as the root element. All other elements must be descendants of this element."
+  },
+  // Document metadata
+  {
+    name: "Base",
+    tag: "base",
+    deprecated: false,
+    description:
+      "Specifies the base URL to use for all relative URLs in a document. There can be only one such element in a document."
+  },
+  {
+    name: "Head",
+    tag: "head",
+    deprecated: false,
+    description:
+      "Contains machine-readable information (metadata) about the document, like its title, scripts, and style sheets."
+  },
+  {
+    name: "Link",
+    tag: "link",
+    deprecated: false,
+    description:
+      "Specifies relationships between the current document and an external resource. Most commonly used to link to CSS and establish site icons."
+  },
+  {
+    name: "Meta",
+    tag: "meta",
+    deprecated: false,
+    description:
+      "Represents metadata that cannot be represented by other HTML meta-related elements, like base, link, script, style and title."
+  },
+  {
+    name: "Style",
+    tag: "style",
+    deprecated: false,
+    description:
+      "Contains style information for a document or part of a document, including CSS."
+  },
+  {
+    name: "Title",
+    tag: "title",
+    deprecated: false,
+    description:
+      "Defines the document's title shown in a browser's title bar or page's tab."
+  },
+  // Sectioning root
+  {
+    name: "Body",
+    tag: "body",
+    deprecated: false,
+    description:
+      "Represents the content of an HTML document. There can be only one such element in a document."
+  },
+  // Content sectioning
+  {
+    name: "Address",
+    tag: "address",
+    deprecated: false,
+    description:
+      "Provides contact information for a person, people, or organization."
+  },
+  {
+    name: "Article",
+    tag: "article",
+    deprecated: false,
+    description:
+      "Represents a self-contained composition in a document, intended to be independently distributable or reusable."
+  },
+  {
+    name: "Aside",
+    tag: "aside",
+    deprecated: false,
+    description:
+      "Represents a portion of a document whose content is indirectly related to the main content."
+  },
+  {
+    name: "Footer",
+    tag: "footer",
+    deprecated: false,
+    description:
+      "Represents a footer for its nearest ancestor sectioning content or sectioning root element."
+  },
+  {
+    name: "Header",
+    tag: "header",
+    deprecated: false,
+    description:
+      "Represents introductory content, typically containing navigation aids, logos, search forms, etc."
+  },
+  {
+    name: "H1",
+    tag: "h1",
+    deprecated: false,
+    description: "Represents the highest level section heading."
+  },
+  {
+    name: "H2",
+    tag: "h2",
+    deprecated: false,
+    description: "Represents the second level section heading."
+  },
+  {
+    name: "H3",
+    tag: "h3",
+    deprecated: false,
+    description: "Represents the third level section heading."
+  },
+  {
+    name: "H4",
+    tag: "h4",
+    deprecated: false,
+    description: "Represents the fourth level section heading."
+  },
+  {
+    name: "H5",
+    tag: "h5",
+    deprecated: false,
+    description: "Represents the fifth level section heading."
+  },
+  {
+    name: "H6",
+    tag: "h6",
+    deprecated: false,
+    description: "Represents the sixth level section heading."
+  },
+  {
+    name: "Hgroup",
+    tag: "hgroup",
+    deprecated: false,
+    description:
+      "Represents a group of headings with secondary content like subheadings or taglines."
+  },
+  {
+    name: "Main",
+    tag: "main",
+    deprecated: false,
+    description:
+      "Represents the dominant content of the body of a document."
+  },
+  {
+    name: "Nav",
+    tag: "nav",
+    deprecated: false,
+    description:
+      "Represents a section of a page intended for navigation links."
+  },
+  {
+    name: "Section",
+    tag: "section",
+    deprecated: false,
+    description:
+      "Represents a generic standalone section of a document."
+  },
+  {
+    name: "Search",
+    tag: "search",
+    deprecated: false,
+    description:
+      "Represents a part containing form controls related to performing a search or filtering operation."
+  },
+  // Text content
+  {
+    name: "Blockquote",
+    tag: "blockquote",
+    deprecated: false,
+    description:
+      "Indicates that the enclosed text is an extended quotation, usually rendered with indentation."
+  },
+  {
+    name: "Dd",
+    tag: "dd",
+    deprecated: false,
+    description:
+      "Provides the description, definition, or value for the preceding term in a description list."
+  },
+  {
+    name: "Div",
+    tag: "div",
+    deprecated: false,
+    description:
+      "Generic container for flow content, with no effect on layout until styled with CSS."
+  },
+  {
+    name: "Dl",
+    tag: "dl",
+    deprecated: false,
+    description:
+      "Represents a description list, enclosing groups of terms and descriptions."
+  },
+  {
+    name: "Dt",
+    tag: "dt",
+    deprecated: false,
+    description:
+      "Specifies a term in a description or definition list."
+  },
+  {
+    name: "Figcaption",
+    tag: "figcaption",
+    deprecated: false,
+    description:
+      "Represents a caption or legend for the contents of its parent figure element."
+  },
+  {
+    name: "Figure",
+    tag: "figure",
+    deprecated: false,
+    description:
+      "Represents self-contained content, optionally with a caption, treated as a single unit."
+  },
+  {
+    name: "Hr",
+    tag: "hr",
+    deprecated: false,
+    description:
+      "Represents a thematic break between paragraph-level elements."
+  },
+  {
+    name: "Li",
+    tag: "li",
+    deprecated: false,
+    description:
+      "Represents an item in a list, contained within an ordered list, unordered list, or menu."
+  },
+  {
+    name: "Menu",
+    tag: "menu",
+    deprecated: false,
+    description:
+      "Represents an unordered list of items, similar to ul."
+  },
+  {
+    name: "Ol",
+    tag: "ol",
+    deprecated: false,
+    description:
+      "Represents an ordered list of items."
+  },
+  {
+    name: "P",
+    tag: "p",
+    deprecated: false,
+    description: "Represents a paragraph."
+  },
+  {
+    name: "Pre",
+    tag: "pre",
+    deprecated: false,
+    description:
+      "Represents preformatted text, preserving whitespace and formatting."
+  },
+  {
+    name: "Ul",
+    tag: "ul",
+    deprecated: false,
+    description:
+      "Represents an unordered list of items."
+  },
+  // Inline text semantics
+  {
+    name: "Anchor",
+    tag: "a",
+    deprecated: false,
+    description:
+      "Creates a hyperlink using the href attribute."
+  },
+  {
+    name: "Abbreviation",
+    tag: "abbr",
+    deprecated: false,
+    description:
+      "Represents an abbreviation or acronym."
+  },
+  {
+    name: "Bold",
+    tag: "b",
+    deprecated: false,
+    description:
+      "Draws attention to text without implying extra importance for styling."
+  },
+  {
+    name: "BDI",
+    tag: "bdi",
+    deprecated: false,
+    description:
+      "Isolates a span of text from its surroundings for bidirectional text rendering."
+  },
+  {
+    name: "BDO",
+    tag: "bdo",
+    deprecated: false,
+    description:
+      "Overrides the current text direction."
+  },
+  {
+    name: "Line Break",
+    tag: "br",
+    deprecated: false,
+    description:
+      "Produces a line break in text."
+  },
+  {
+    name: "Cite",
+    tag: "cite",
+    deprecated: false,
+    description:
+      "Marks up the title of a creative work."
+  },
+  {
+    name: "Code",
+    tag: "code",
+    deprecated: false,
+    description:
+      "Displays text as a short fragment of computer code in a monospace font."
+  },
+  {
+    name: "Data",
+    tag: "data",
+    deprecated: false,
+    description:
+      "Links content with a machine-readable translation."
+  },
+  {
+    name: "Definition",
+    tag: "dfn",
+    deprecated: false,
+    description:
+      "Indicates the term being defined within a definition phrase or sentence."
+  },
+  {
+    name: "Emphasis",
+    tag: "em",
+    deprecated: false,
+    description:
+      "Marks text that has stress emphasis."
+  },
+  {
+    name: "Italic",
+    tag: "i",
+    deprecated: false,
+    description:
+      "Represents text that is set off from normal text, typically rendered in italics."
+  },
+  {
+    name: "Keyboard",
+    tag: "kbd",
+    deprecated: false,
+    description:
+      "Represents a span of text denoting user input from a keyboard or similar device."
+  },
+  {
+    name: "Mark",
+    tag: "mark",
+    deprecated: false,
+    description:
+      "Represents text that is marked or highlighted for reference."
+  },
+  {
+    name: "Quote",
+    tag: "q",
+    deprecated: false,
+    description:
+      "Indicates a short inline quotation."
+  },
+  {
+    name: "Ruby Parenthesis",
+    tag: "rp",
+    deprecated: false,
+    description:
+      "Provides fallback parentheses for ruby annotations."
+  },
+  {
+    name: "Ruby Text",
+    tag: "rt",
+    deprecated: false,
+    description:
+      "Specifies the text component of a ruby annotation."
+  },
+  {
+    name: "Ruby",
+    tag: "ruby",
+    deprecated: false,
+    description:
+      "Represents annotations for pronunciation of East Asian characters."
+  },
+  {
+    name: "Strikethrough",
+    tag: "s",
+    deprecated: false,
+    description:
+      "Renders text with a strikethrough."
+  },
+  {
+    name: "Sample Output",
+    tag: "samp",
+    deprecated: false,
+    description:
+      "Represents sample or quoted output from a computer program."
+  },
+  {
+    name: "Small",
+    tag: "small",
+    deprecated: false,
+    description:
+      "Represents side-comments or small print."
+  },
+  {
+    name: "Span",
+    tag: "span",
+    deprecated: false,
+    description:
+      "A generic inline container for phrasing content."
+  },
+  {
+    name: "Strong",
+    tag: "strong",
+    deprecated: false,
+    description:
+      "Indicates that its contents have strong importance, typically rendered in bold."
+  },
+  {
+    name: "Subscript",
+    tag: "sub",
+    deprecated: false,
+    description:
+      "Specifies inline text displayed as subscript for typographical reasons."
+  },
+  {
+    name: "Superscript",
+    tag: "sup",
+    deprecated: false,
+    description:
+      "Specifies inline text displayed as superscript for typographical reasons."
+  },
+  {
+    name: "Time",
+    tag: "time",
+    deprecated: false,
+    description:
+      "Represents a specific period in time, optionally with a machine-readable datetime attribute."
+  },
+  {
+    name: "Underline",
+    tag: "u",
+    deprecated: false,
+    description:
+      "Renders text with an underline to indicate a non-textual annotation."
+  },
+  {
+    name: "Variable",
+    tag: "var",
+    deprecated: false,
+    description:
+      "Represents the name of a variable in an expression or programming context."
+  },
+  {
+    name: "Word Break",
+    tag: "wbr",
+    deprecated: false,
+    description:
+      "Represents a word break opportunity."
+  },
+  // Image and multimedia
+  {
+    name: "Area",
+    tag: "area",
+    deprecated: false,
+    description:
+      "Defines an area inside an image map with predefined clickable areas."
+  },
+  {
+    name: "Audio",
+    tag: "audio",
+    deprecated: false,
+    description:
+      "Embeds sound content, potentially with multiple audio sources."
+  },
+  {
+    name: "Image",
+    tag: "img",
+    deprecated: false,
+    description:
+      "Embeds an image into the document."
+  },
+  {
+    name: "Map",
+    tag: "map",
+    deprecated: false,
+    description:
+      "Defines an image map using area elements for clickable regions."
+  },
+  {
+    name: "Track",
+    tag: "track",
+    deprecated: false,
+    description:
+      "Specifies timed text tracks for media elements, formatted in WebVTT."
+  },
+  {
+    name: "Video",
+    tag: "video",
+    deprecated: false,
+    description:
+      "Embeds a media player that supports video playback."
+  },
+  // Embedded content
+  {
+    name: "Embed",
+    tag: "embed",
+    deprecated: false,
+    description:
+      "Embeds external content at the specified point in the document."
+  },
+  {
+    name: "Fencedframe",
+    tag: "fencedframe",
+    deprecated: false,
+    description:
+      "Represents a nested browsing context with enhanced privacy features."
+  },
+  {
+    name: "Iframe",
+    tag: "iframe",
+    deprecated: false,
+    description:
+      "Embeds another HTML page into the current document as a nested browsing context."
+  },
+  {
+    name: "Object",
+    tag: "object",
+    deprecated: false,
+    description:
+      "Represents an external resource that can be treated as an image, nested browsing context, or plugin content."
+  },
+  {
+    name: "Picture",
+    tag: "picture",
+    deprecated: false,
+    description:
+      "Contains source elements and an img element to offer alternative image versions."
+  },
+  {
+    name: "Source",
+    tag: "source",
+    deprecated: false,
+    description:
+      "Specifies multiple media resources for picture, audio, or video elements."
+  },
+  // SVG and MathML
+  {
+    name: "SVG",
+    tag: "svg",
+    deprecated: false,
+    description:
+      "Container defining a new coordinate system and viewport for SVG content."
+  },
+  {
+    name: "Math",
+    tag: "math",
+    deprecated: false,
+    description:
+      "The top-level element in MathML, wrapping valid MathML content."
+  },
+  // Scripting
+  {
+    name: "Canvas",
+    tag: "canvas",
+    deprecated: false,
+    description:
+      "Container for drawing graphics via the canvas or WebGL API."
+  },
+  {
+    name: "NoScript",
+    tag: "noscript",
+    deprecated: false,
+    description:
+      "Defines content to be displayed if scripting is disabled or unsupported."
+  },
+  {
+    name: "Script",
+    tag: "script",
+    deprecated: false,
+    description:
+      "Embeds executable code or data, typically JavaScript."
+  },
+  // Demarcating edits
+  {
+    name: "Deleted Text",
+    tag: "del",
+    deprecated: false,
+    description:
+      "Represents text that has been deleted from a document."
+  },
+  {
+    name: "Inserted Text",
+    tag: "ins",
+    deprecated: false,
+    description:
+      "Represents text that has been added to a document."
+  },
+  // Table content
+  {
+    name: "Caption",
+    tag: "caption",
+    deprecated: false,
+    description:
+      "Specifies the caption or title of a table."
+  },
+  {
+    name: "Col",
+    tag: "col",
+    deprecated: false,
+    description:
+      "Defines one or more columns in a column group of a table."
+  },
+  {
+    name: "Colgroup",
+    tag: "colgroup",
+    deprecated: false,
+    description:
+      "Defines a group of columns within a table."
+  },
+  {
+    name: "Table",
+    tag: "table",
+    deprecated: false,
+    description:
+      "Represents tabular data in rows and columns."
+  },
+  {
+    name: "Tbody",
+    tag: "tbody",
+    deprecated: false,
+    description:
+      "Encapsulates the body rows of a table."
+  },
+  {
+    name: "Td",
+    tag: "td",
+    deprecated: false,
+    description:
+      "Defines a cell containing data in a table row."
+  },
+  {
+    name: "Tfoot",
+    tag: "tfoot",
+    deprecated: false,
+    description:
+      "Encapsulates the footer rows of a table, usually summarizing columns."
+  },
+  {
+    name: "Th",
+    tag: "th",
+    deprecated: false,
+    description:
+      "Defines a header cell in a table row."
+  },
+  {
+    name: "Thead",
+    tag: "thead",
+    deprecated: false,
+    description:
+      "Encapsulates the header rows of a table."
+  },
+  {
+    name: "Tr",
+    tag: "tr",
+    deprecated: false,
+    description:
+      "Defines a row of cells in a table."
+  },
+  // Forms
+  {
+    name: "Button",
+    tag: "button",
+    deprecated: false,
+    description:
+      "An interactive element that can be activated to perform an action, like submitting a form."
+  },
+  {
+    name: "Datalist",
+    tag: "datalist",
+    deprecated: false,
+    description:
+      "Contains option elements representing recommended choices for other controls."
+  },
+  {
+    name: "Fieldset",
+    tag: "fieldset",
+    deprecated: false,
+    description:
+      "Groups several controls and labels within a form."
+  },
+  {
+    name: "Form",
+    tag: "form",
+    deprecated: false,
+    description:
+      "Represents a section containing interactive controls for submitting information."
+  },
+  {
+    name: "Input",
+    tag: "input",
+    deprecated: false,
+    description:
+      "Creates interactive controls for accepting user data in a form."
+  },
+  {
+    name: "Label",
+    tag: "label",
+    deprecated: false,
+    description:
+      "Represents a caption for an item in a user interface."
+  },
+  {
+    name: "Legend",
+    tag: "legend",
+    deprecated: false,
+    description:
+      "Represents a caption for the content of its parent fieldset."
+  },
+  {
+    name: "Meter",
+    tag: "meter",
+    deprecated: false,
+    description:
+      "Represents a scalar or fractional value within a known range."
+  },
+  {
+    name: "Optgroup",
+    tag: "optgroup",
+    deprecated: false,
+    description:
+      "Groups options within a select element."
+  },
+  {
+    name: "Option",
+    tag: "option",
+    deprecated: false,
+    description:
+      "Defines an item in a select, optgroup, or datalist."
+  },
+  {
+    name: "Output",
+    tag: "output",
+    deprecated: false,
+    description:
+      "Container for the result of a calculation or user action."
+  },
+  {
+    name: "Progress",
+    tag: "progress",
+    deprecated: false,
+    description:
+      "Displays an indicator showing the completion progress of a task."
+  },
+  {
+    name: "Select",
+    tag: "select",
+    deprecated: false,
+    description:
+      "Represents a control that provides a menu of options."
+  },
+  {
+    name: "Textarea",
+    tag: "textarea",
+    deprecated: false,
+    description:
+      "Represents a multi-line plain-text editing control."
+  },
+  // Interactive elements
+  {
+    name: "Details",
+    tag: "details",
+    deprecated: false,
+    description:
+      "Creates a disclosure widget that toggles visibility of additional information."
+  },
+  {
+    name: "Dialog",
+    tag: "dialog",
+    deprecated: false,
+    description:
+      "Represents a dialog box or other interactive component."
+  },
+  {
+    name: "Summary",
+    tag: "summary",
+    deprecated: false,
+    description:
+      "Specifies a summary or caption for a details element."
+  },
+  // Web Components
+  {
+    name: "Slot",
+    tag: "slot",
+    deprecated: false,
+    description:
+      "A placeholder inside a web component for inserting custom markup."
+  },
+  {
+    name: "Template",
+    tag: "template",
+    deprecated: false,
+    description:
+      "Holds HTML that is not rendered immediately but can be instantiated later."
+  },
+  // Obsolete and deprecated elements
+  {
+    name: "Acronym",
+    tag: "acronym",
+    deprecated: true,
+    description:
+      "Indicates an acronym or abbreviation. Deprecated."
+  },
+  {
+    name: "Big",
+    tag: "big",
+    deprecated: true,
+    description:
+      "Renders text one level larger than surrounding text. Deprecated."
+  },
+  {
+    name: "Center",
+    tag: "center",
+    deprecated: true,
+    description:
+      "Centers text horizontally. Deprecated in HTML5."
+  },
+  {
+    name: "Content",
+    tag: "content",
+    deprecated: true,
+    description:
+      "Used in Shadow DOM as an insertion point; replaced by the slot element."
+  },
+  {
+    name: "Dir",
+    tag: "dir",
+    deprecated: true,
+    description:
+      "Represents a directory list. Deprecated in favor of ul."
+  },
+  {
+    name: "Font",
+    tag: "font",
+    deprecated: true,
+    description:
+      "Defines font size, color, and face. Deprecated."
+  },
+  {
+    name: "Frame",
+    tag: "frame",
+    deprecated: true,
+    description:
+      "Defines an area in which another HTML document can be displayed. Deprecated."
+  },
+  {
+    name: "Frameset",
+    tag: "frameset",
+    deprecated: true,
+    description:
+      "Used to contain frame elements. Deprecated."
+  },
+  {
+    name: "Image",
+    tag: "image",
+    deprecated: true,
+    description:
+      "An ancient precursor to the img element. Deprecated."
+  },
+  {
+    name: "Marquee",
+    tag: "marquee",
+    deprecated: true,
+    description:
+      "Creates a scrolling area of text. Deprecated."
+  },
+  {
+    name: "Menuitem",
+    tag: "menuitem",
+    deprecated: true,
+    description:
+      "Represents a command in a popup menu. Deprecated."
+  },
+  {
+    name: "Nobr",
+    tag: "nobr",
+    deprecated: true,
+    description:
+      "Prevents automatic text wrapping. Deprecated."
+  },
+  {
+    name: "Noembed",
+    tag: "noembed",
+    deprecated: true,
+    description:
+      "Provides fallback content for unsupported embed elements. Deprecated."
+  },
+  {
+    name: "Noframes",
+    tag: "noframes",
+    deprecated: true,
+    description:
+      "Provides content for browsers that do not support frames. Deprecated."
+  },
+  {
+    name: "Param",
+    tag: "param",
+    deprecated: true,
+    description:
+      "Defines parameters for an object element. Deprecated."
+  },
+  {
+    name: "Plaintext",
+    tag: "plaintext",
+    deprecated: true,
+    description:
+      "Renders all following text as raw text. Deprecated."
+  },
+  {
+    name: "RB",
+    tag: "rb",
+    deprecated: true,
+    description:
+      "Delimits the base text component of a ruby annotation. Deprecated."
+  },
+  {
+    name: "RTC",
+    tag: "rtc",
+    deprecated: true,
+    description:
+      "Provides annotations for ruby text. Deprecated."
+  },
+  {
+    name: "Shadow",
+    tag: "shadow",
+    deprecated: true,
+    description:
+      "An obsolete shadow DOM insertion point. Deprecated."
+  },
+  {
+    name: "Strike",
+    tag: "strike",
+    deprecated: true,
+    description:
+      "Renders text with a strikethrough. Deprecated."
+  },
+  {
+    name: "TT",
+    tag: "tt",
+    deprecated: true,
+    description:
+      "Displays text in a fixed-width font. Deprecated."
+  },
+  {
+    name: "XMP",
+    tag: "xmp",
+    deprecated: true,
+    description:
+      "Renders text without interpreting HTML, using a monospaced font. Deprecated."
+  }
+];
+
+
+    const container = document.getElementById("elements");
+
+    elements.forEach(el => {
+      const div = document.createElement("div");
+      div.className = "element" + (el.deprecated ? " deprecated" : "");
+      div.draggable = true;
+      div.ondragstart = drag;
+      div.id = el.tag + "-el";
+      div.innerHTML = `<mark>&lt;${el.tag}&gt;</mark> ${el.name}`;
+      container.appendChild(div);
+    });
+
+    function allowDrop(ev) {
+      ev.preventDefault();
+    }
+
+    function drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    function drop(ev) {
+      ev.preventDefault();
+      const data = ev.dataTransfer.getData("text");
+      const draggedEl = document.getElementById(data);
+      if (draggedEl) {
+        ev.target.closest(".tier").appendChild(draggedEl);
+      }
+    }
+  </script>
+</body>
+</html>
